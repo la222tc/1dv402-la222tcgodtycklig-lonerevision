@@ -44,6 +44,7 @@ namespace Godtycklig_lönerevision
 
                 catch (Exception)
                 {
+                    Console.WriteLine();
                     Console.BackgroundColor = ConsoleColor.Green;
                     Console.WriteLine("Tryck på valfri tangent för ny beräkning - Ecs avslutar");
                     Console.ResetColor();
@@ -65,6 +66,7 @@ namespace Godtycklig_lönerevision
         {
             
             int[] salaries;
+            int[] unsortedSalaries;
             int medianSalary;
             int avrageSalary;
             int salarySpread;
@@ -73,12 +75,13 @@ namespace Godtycklig_lönerevision
            
 
             salaries = new int [count];
+            unsortedSalaries = new int [count];
 
             for (int i = 0; i < count; i++)
             {
                 salaries[i] = ReadInt(string.Format("Ange lön nummer {0}: ", i + 1));
 
-                
+                unsortedSalaries[i] = salaries[i];
             }
 
             
@@ -111,6 +114,19 @@ namespace Godtycklig_lönerevision
             Console.WriteLine("Medellön:            {0:C0}", avrageSalary);
             Console.WriteLine("Lönespridning:       {0:C0}", salarySpread);
             Console.WriteLine("--------------------------------");
+            Console.WriteLine();
+
+            for (int i = 0; i <= count; i++)
+            {
+                Console.Write("  {0,5}   ", unsortedSalaries[i]);
+
+                if (i % 3 == 2)
+                {
+                    Console.WriteLine();
+                }
+                
+            }
+
             Console.WriteLine();
 
             throw new Exception();
