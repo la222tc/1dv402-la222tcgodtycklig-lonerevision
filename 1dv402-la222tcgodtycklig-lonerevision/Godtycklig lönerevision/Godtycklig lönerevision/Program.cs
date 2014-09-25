@@ -19,11 +19,11 @@ namespace Godtycklig_lönerevision
 
                 try
                 {
-                    amountOfSalaries = ReadInt("Ange antalet löner att mata in: ");
+                    amountOfSalaries = ReadInt("Ange antalet löner att mata in: ");         //Skickar med det som står i parantes till ReadInt
                     Console.WriteLine();
 
-                    if (amountOfSalaries < 2)
-                    {
+                    if (amountOfSalaries < 2)                                               // om ammountOfSalaries är mindre än 2 så körs if satsen och kastar ett 
+                    {                                                                       // undantag som fångas upp av catch och så körs den koden
                         Console.BackgroundColor = ConsoleColor.Red;
                         Console.WriteLine("Du måste mata in minst 2 löner för att kunna göra en beräkning!");
                         Console.ResetColor();
@@ -35,7 +35,7 @@ namespace Godtycklig_lönerevision
 
                     else
                     {
-                       ProcessSalaries(amountOfSalaries);
+                       ProcessSalaries(amountOfSalaries);                                   //tar med ammountOfSalaries till metoden ProcessSalaries
                     }
 
                     Console.WriteLine();
@@ -49,13 +49,12 @@ namespace Godtycklig_lönerevision
                     Console.WriteLine("Tryck på valfri tangent för ny beräkning - Ecs avslutar");
                     Console.ResetColor();
 
-                    ConsoleKeyInfo cki;
-                    cki = Console.ReadKey(true);
-                    if(cki.Key == ConsoleKey.Escape)
+                    ConsoleKeyInfo cki = Console.ReadKey(true);                             // kollar vilken knapp som blir intryckt och kör om programmet 
+                    if(cki.Key == ConsoleKey.Escape)                                        // om inte Escape knappen blir intryckt, då avslutas det
                     {
                         return;
                     }
-
+                                                                                                                                                                                              
                 }
 
             }
@@ -65,8 +64,8 @@ namespace Godtycklig_lönerevision
         static void ProcessSalaries(int count)
         {
             
-            int[] salaries;
-            int[] unsortedSalaries;
+            int[] salaries;                                                                // Skapar en tom array
+            int[] unsortedSalaries;                                                        // Skapar en tom array
             int medianSalary;
             int avrageSalary;
             int salarySpread;
@@ -74,14 +73,15 @@ namespace Godtycklig_lönerevision
             int minimumSalary;
            
 
-            salaries = new int [count];
-            unsortedSalaries = new int [count];
+            salaries = new int [count];                                                     // Lägger till det värdet som count har till salaries
+            unsortedSalaries = new int[count];                                              // Lägger till det värdet som count har till unsortedSalaries
 
             for (int i = 0; i < count; i++)
             {
-                salaries[i] = ReadInt(string.Format("Ange lön nummer {0}: ", i + 1));
-
-                unsortedSalaries[i] = salaries[i];
+                salaries[i] = ReadInt(string.Format("Ange lön nummer {0}: ", i + 1));       // Loopar igenom arrayen och skickar det i parantes till ReadInt
+                                                                                            // Plussar på 1 till i för varje gång loopen kör igenom
+                unsortedSalaries[i] = salaries[i];                                          // Lägger till salaries arrayen till en ny array för att spara arrayen som
+                                                                                            // den är just nu till senare
             }
 
             
@@ -99,10 +99,10 @@ namespace Godtycklig_lönerevision
 
             
 
-            if(count % 2 == 0)
+            if(count % 2 == 0)                                                              // Kollar om det är jämt antal eller inte
             {
-                medianSalary = (salaries[mSalary - 1] + salaries[mSalary]) / 2;
-            }
+                medianSalary = (salaries[mSalary - 1] + salaries[mSalary]) / 2;             // Det är jämt antal och plussar ihop de 2 mellersta värderna i arrayen och
+            }                                                                               // dividerar dom på 2
             else
             {
                 medianSalary = salaries[mSalary];
@@ -118,8 +118,8 @@ namespace Godtycklig_lönerevision
 
             for (int i = 0; i <= count; i++)
             {
-                Console.Write("  {0,5}   ", unsortedSalaries[i]);
-
+                Console.Write("  {0,5}   ", unsortedSalaries[i]);                           // Skriver ut de osorterade värderna i arrayen och justerar så att  
+                                                                                            // de olika värden hamnar bra under varran
                 if (i % 3 == 2)
                 {
                     Console.WriteLine();
@@ -128,9 +128,9 @@ namespace Godtycklig_lönerevision
             }
 
             Console.WriteLine();
-
-            throw new Exception();
-            
+                
+            throw new Exception();                                                          // Kastar ett nytt undantag som tas upp av catch så får användaren
+                                                                                            // chans att välja om han vill göra en ny beraäkning eller inte
         }
 
         static int ReadInt(string prompt)
@@ -140,18 +140,20 @@ namespace Godtycklig_lönerevision
 
             while (true)
             {
+                string str = "";
                 try
                 {
 
 
                     Console.Write(prompt);
-                    value = int.Parse(Console.ReadLine());
-
+                    str = Console.ReadLine();
+                    value = int.Parse(str);                                  // Skriver ut stringen som följer med och låter användaren skriva in 
+                                                                                            // ett värde
                     if (value < 1)
                     {
                         Console.WriteLine();
                         Console.BackgroundColor = ConsoleColor.Red;  
-                        Console.WriteLine("Skriv in ett värde högre än 0.");
+                        Console.WriteLine("Skriv in ett värde som är högre än 0.");
                         Console.ResetColor();
                         Console.WriteLine();
 
@@ -166,12 +168,12 @@ namespace Godtycklig_lönerevision
                 {
                     Console.WriteLine();
                     Console.BackgroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Fel format! Försök igen.");
+                    Console.WriteLine("Fel format! {0} Försök igen.", str);
                     Console.ResetColor();
                     Console.WriteLine();
                 }
             }
-             return value;
+             return value;                                                                  // Returnerar värdet som användaren skrev in
                
         }
     }
